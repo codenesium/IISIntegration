@@ -36,21 +36,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDeleteWebsite = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxVirtualDirectoryPath = new System.Windows.Forms.TextBox();
             this.buttonCreateVirtualDirectory = new System.Windows.Forms.Button();
             this.textBoxVirtualDirectory = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxVirtualDirectoryPath = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxWebsitePhysicalPath = new System.Windows.Forms.TextBox();
             this.buttonCreateWebsite = new System.Windows.Forms.Button();
             this.textBoxSiteName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.comboBoxApplications = new System.Windows.Forms.ComboBox();
             this.buttonDeleteApplication = new System.Windows.Forms.Button();
@@ -62,10 +62,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
             this.comboBoxAppPools = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonDeleteAppPool = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonCreateAppPool = new System.Windows.Forms.Button();
@@ -162,6 +162,22 @@
             this.panel2.Size = new System.Drawing.Size(246, 190);
             this.panel2.TabIndex = 16;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Virtual Directory";
+            // 
+            // textBoxVirtualDirectoryPath
+            // 
+            this.textBoxVirtualDirectoryPath.Location = new System.Drawing.Point(29, 101);
+            this.textBoxVirtualDirectoryPath.Name = "textBoxVirtualDirectoryPath";
+            this.textBoxVirtualDirectoryPath.Size = new System.Drawing.Size(178, 20);
+            this.textBoxVirtualDirectoryPath.TabIndex = 16;
+            // 
             // buttonCreateVirtualDirectory
             // 
             this.buttonCreateVirtualDirectory.Location = new System.Drawing.Point(132, 144);
@@ -193,26 +209,10 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(27, 85);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Path";
+            this.label7.Text = "Physical Path";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBoxVirtualDirectoryPath
-            // 
-            this.textBoxVirtualDirectoryPath.Location = new System.Drawing.Point(29, 101);
-            this.textBoxVirtualDirectoryPath.Name = "textBoxVirtualDirectoryPath";
-            this.textBoxVirtualDirectoryPath.Size = new System.Drawing.Size(178, 20);
-            this.textBoxVirtualDirectoryPath.TabIndex = 16;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 3);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
-            this.label8.TabIndex = 17;
-            this.label8.Text = "Virtual Directory";
             // 
             // panel3
             // 
@@ -229,6 +229,23 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(246, 253);
             this.panel3.TabIndex = 18;
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Location = new System.Drawing.Point(30, 147);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(178, 20);
+            this.textBoxPort.TabIndex = 19;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(28, 131);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(26, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Port";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label10
             // 
@@ -281,23 +298,6 @@
             this.label12.TabIndex = 11;
             this.label12.Text = "Physical Path";
             this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBoxPort
-            // 
-            this.textBoxPort.Location = new System.Drawing.Point(30, 147);
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(178, 20);
-            this.textBoxPort.TabIndex = 19;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(28, 131);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(26, 13);
-            this.label13.TabIndex = 18;
-            this.label13.Text = "Port";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label14
             // 
@@ -414,18 +414,6 @@
             this.panel6.Size = new System.Drawing.Size(575, 225);
             this.panel6.TabIndex = 23;
             // 
-            // panel7
-            // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel7.Controls.Add(this.panel6);
-            this.panel7.Controls.Add(this.panel5);
-            this.panel7.Controls.Add(this.panel2);
-            this.panel7.Controls.Add(this.panel3);
-            this.panel7.Location = new System.Drawing.Point(12, 12);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(621, 692);
-            this.panel7.TabIndex = 24;
-            // 
             // comboBoxAppPools
             // 
             this.comboBoxAppPools.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -452,6 +440,18 @@
             this.buttonDeleteAppPool.TabIndex = 24;
             this.buttonDeleteAppPool.Text = "Delete";
             this.buttonDeleteAppPool.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.panel6);
+            this.panel7.Controls.Add(this.panel5);
+            this.panel7.Controls.Add(this.panel2);
+            this.panel7.Controls.Add(this.panel3);
+            this.panel7.Location = new System.Drawing.Point(12, 12);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(621, 692);
+            this.panel7.TabIndex = 24;
             // 
             // panel1
             // 
@@ -517,9 +517,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(26, 94);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.Size = new System.Drawing.Size(70, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "NET Version";
+            this.label5.Text = ".NET Version";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // comboBoxNETVersion

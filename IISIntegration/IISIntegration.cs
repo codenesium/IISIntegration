@@ -70,7 +70,14 @@ namespace Codenesium.IISIntegration
             siteName.Should().NotBeNullOrEmpty();
             using (ServerManager serverManager = new ServerManager())
             {
-                return serverManager.Sites[siteName].Applications.Select(x => x.Path).ToList();
+                if (serverManager.Sites[siteName] == null || serverManager.Sites[siteName].Applications == null)
+                {
+                    return new List<string>();
+                }
+                else
+                {
+                    return serverManager.Sites[siteName].Applications.Select(x => x.Path).ToList();
+                }
             }
         }
 
@@ -181,7 +188,7 @@ namespace Codenesium.IISIntegration
                 }
                 else
                 {
-                    _logger.Info("Application already exists name={0}", siteName);
+                    _logger.Info("Application already exists name={0}", applicationName);
                 }
 
                 SetApplicationApplicationPool(siteName, applicationName, appPoolName);
@@ -271,11 +278,16 @@ namespace Codenesium.IISIntegration
             using (ServerManager serverManager = new ServerManager())
             {
                 var site = serverManager.Sites[siteName];
-                site.Should().NotBeNull("Site does not exist siteName={0}", siteName);
-
-                serverManager.Sites.Remove(site);
-                serverManager.CommitChanges();
-                _logger.Info("Creating website complete siteName={0}", siteName);
+                if (site == null)
+                {
+                    _logger.Info("Site does not exist siteName={0}", siteName);
+                }
+                else
+                {
+                    serverManager.Sites.Remove(site);
+                    serverManager.CommitChanges();
+                    _logger.Info("Creating website complete siteName={0}", siteName);
+                }
             }
         }
     }
