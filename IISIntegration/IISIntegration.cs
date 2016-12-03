@@ -202,20 +202,31 @@ namespace Codenesium.IISIntegration
             _logger.Info("Deleting application siteName={0},applicationName={1}", siteName, applicationName);
             siteName.Should().NotBeNullOrEmpty();
             applicationName.Should().NotBeNullOrEmpty();
+
+            if(!applicationName.StartsWith("/"))
+            {
+                applicationName = "/" + applicationName;
+            }
+
             using (ServerManager serverManager = new ServerManager())
             {
                 var site = serverManager.Sites[siteName];
-                site.Should().NotBeNull("Site does not exist siteName={0}", siteName);
-
-                if (site.Applications[applicationName] == null)
+                if (site == null)
                 {
-                    _logger.Info("Application does not exist name={0}", siteName);
+                    _logger.Info("Site does not exist siteName={0}", siteName);
                 }
                 else
                 {
-                    site.Applications[applicationName].Delete();
-                    serverManager.CommitChanges();
-                    _logger.Info("Application deleted name={0}", siteName);
+                    if (site.Applications[applicationName] == null)
+                    {
+                        _logger.Info("Application does not exist applicationName={0}", applicationName);
+                    }
+                    else
+                    {
+                        site.Applications[applicationName].Delete();
+                        serverManager.CommitChanges();
+                        _logger.Info("Application deleted applicationName={0}", applicationName);
+                    }
                 }
             }
         }
