@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Codenesium.IISIntegration</id>
+    <version>2017.1.1</version>
+    <title>Codenesium IIS Integration</title>
+	<description>Helper library for interacting with IIS</description>
+    <authors>Codenesium LLC</authors>
+    <owners>Codenesium LLC</owners>
+    <copyright>Copyright 2017</copyright>
+  </metadata>
+  	<files>
+		<file src="bin\Release\Codenesium.IISIntegration.dll" target="lib\net461\" />
+	</files>
+</package>
