@@ -107,12 +107,39 @@ namespace Codenesium.IISIntegration
                     newPool.ManagedRuntimeVersion = NETVersion;
                     newPool.ManagedPipelineMode = ManagedPipelineMode.Integrated;
                     newPool.Enable32BitAppOnWin64 = enable32BitAppOnWin64;
-                    serverManager.CommitChanges();
+                   
+                    this.commitChanges(serverManager);
                     _logger.Info("App pool created name={0},NETVersion={1},enable32BitAppOnWin64={2}", name, NETVersion, enable32BitAppOnWin64);
                 }
                 else
                 {
                     _logger.Info("Application pool already exists name={0}", name);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retry the commit with sleep.
+        /// </summary>
+        /// <param name="serverManager"></param>
+        private void commitChanges(ServerManager serverManager)
+        {
+
+            int retryCount = 5;
+            for (int i = 0; i < retryCount; i++)
+            {
+                try
+                {
+                    serverManager.CommitChanges();
+                    return;
+                }
+                catch (System.IO.FileLoadException)
+                {
+                    if(i >= retryCount)
+                    {
+                        throw;
+                    }
+                    System.Threading.Thread.Sleep(1000);
                 }
             }
         }
@@ -130,7 +157,7 @@ namespace Codenesium.IISIntegration
                 else
                 {
                     serverManager.ApplicationPools.Remove(serverManager.ApplicationPools[name]);
-                    serverManager.CommitChanges();
+                    this.commitChanges(serverManager);
                     _logger.Info("Application pool deleted name={0}", name);
                 }
             }
@@ -155,7 +182,7 @@ namespace Codenesium.IISIntegration
                 application.Should().NotBeNull("The application does not exist");
 
                 application.ApplicationPoolName = applicationPoolName;
-                serverManager.CommitChanges();
+                this.commitChanges(serverManager);
                 _logger.Info("Application pool set applicationName={0},applicationPoolName={1}", applicationName, applicationPoolName);
             }
         }
@@ -183,16 +210,16 @@ namespace Codenesium.IISIntegration
                 {
                     _logger.Info("Application does not exist name={0}", siteName);
                     applications.Add(applicationName, siteDirectory);
-                    serverManager.CommitChanges();
+                    this.commitChanges(serverManager);
                     _logger.Info("Application created name={0}", siteName);
                 }
                 else
                 {
                     _logger.Info("Application already exists name={0}", applicationName);
                 }
-
-                SetApplicationApplicationPool(siteName, applicationName, appPoolName);
             }
+
+            SetApplicationApplicationPool(siteName, applicationName, appPoolName);
         }
 
         public void DeleteApplication(
@@ -224,7 +251,7 @@ namespace Codenesium.IISIntegration
                     else
                     {
                         site.Applications[applicationName].Delete();
-                        serverManager.CommitChanges();
+                        this.commitChanges(serverManager);
                         _logger.Info("Application deleted applicationName={0}", applicationName);
                     }
                 }
@@ -253,7 +280,7 @@ namespace Codenesium.IISIntegration
                 application.Should().NotBeNull("Application was not found applicationName={0}", applicationName);
 
                 application.VirtualDirectories.Add("/" + virtualDirectoryName, path);
-                serverManager.CommitChanges();
+                this.commitChanges(serverManager);
                 _logger.Info("Creating virtual directory complete siteName={0}", siteName);
             }
         }
@@ -275,7 +302,7 @@ namespace Codenesium.IISIntegration
                 site.Should().BeNull("Site already exists siteName={0}", siteName);
 
                 serverManager.Sites.Add(siteName, physicalPath, portNumber);
-                serverManager.CommitChanges();
+                this.commitChanges(serverManager);
 
                 _logger.Info("Creating website complete siteName={0}", siteName);
             }
@@ -296,7 +323,7 @@ namespace Codenesium.IISIntegration
                 else
                 {
                     serverManager.Sites.Remove(site);
-                    serverManager.CommitChanges();
+                    this.commitChanges(serverManager);
                     _logger.Info("Creating website complete siteName={0}", siteName);
                 }
             }
