@@ -440,6 +440,7 @@
             this.buttonDeleteAppPool.TabIndex = 24;
             this.buttonDeleteAppPool.Text = "Delete";
             this.buttonDeleteAppPool.UseVisualStyleBackColor = true;
+            this.buttonDeleteAppPool.Click += new System.EventHandler(this.buttonDeleteAppPool_Click_1);
             // 
             // panel7
             // 
@@ -485,6 +486,7 @@
             this.buttonCreateAppPool.TabIndex = 15;
             this.buttonCreateAppPool.Text = "Create";
             this.buttonCreateAppPool.UseVisualStyleBackColor = true;
+            this.buttonCreateAppPool.Click += new System.EventHandler(this.buttonCreateAppPool_Click_1);
             // 
             // textBoxApplicationPoolName
             // 

@@ -117,5 +117,21 @@ namespace Tester
                 this._manager.CreateApplication(comboBoxSites.Text, textBoxApplicationPath.Text, textBoxApplicationName.Text, comboBoxAppPools.Text);
             }
         }
+
+        private void buttonCreateAppPool_Click_1(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(textBoxApplicationPoolName.Text))
+            {
+                this._manager.CreateAppPool(textBoxApplicationPoolName.Text, comboBoxNETVersion.Text, checkBoxEnable32BitApplications.Checked);
+            }
+        }
+
+        private void buttonDeleteAppPool_Click_1(object sender, EventArgs e)
+        {
+            if (comboBoxAppPools.SelectedIndex > -1)
+            {
+                this._manager.DeleteAppPool(comboBoxAppPools.Text);
+            }
+        }
     }
 }
