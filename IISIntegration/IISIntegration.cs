@@ -12,6 +12,33 @@ namespace Codenesium.IISIntegration
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
+
+        /// <summary>
+        /// Retry the commit with sleep.
+        /// </summary>
+        /// <param name="serverManager"></param>
+        private void commitChanges(ServerManager serverManager)
+        {
+
+            int retryCount = 5;
+            for (int i = 0; i < retryCount; i++)
+            {
+                try
+                {
+                    serverManager.CommitChanges();
+                    return;
+                }
+                catch (System.IO.FileLoadException)
+                {
+                    if (i >= retryCount)
+                    {
+                        throw;
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }
+        }
+
         public void StartWebsite(string siteName)
         {
             _logger.Info("Starting website siteName={0}", siteName);
@@ -118,31 +145,6 @@ namespace Codenesium.IISIntegration
             }
         }
 
-        /// <summary>
-        /// Retry the commit with sleep.
-        /// </summary>
-        /// <param name="serverManager"></param>
-        private void commitChanges(ServerManager serverManager)
-        {
-
-            int retryCount = 5;
-            for (int i = 0; i < retryCount; i++)
-            {
-                try
-                {
-                    serverManager.CommitChanges();
-                    return;
-                }
-                catch (System.IO.FileLoadException)
-                {
-                    if(i >= retryCount)
-                    {
-                        throw;
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-            }
-        }
 
         public void DeleteAppPool(string name)
         {
@@ -159,6 +161,45 @@ namespace Codenesium.IISIntegration
                     serverManager.ApplicationPools.Remove(serverManager.ApplicationPools[name]);
                     this.commitChanges(serverManager);
                     _logger.Info("Application pool deleted name={0}", name);
+                }
+            }
+        }
+
+        public void StopAppPool(string name)
+        {
+            _logger.Info($"Stopping app pool name={name}");
+            name.Should().NotBeNullOrEmpty();
+            using (ServerManager serverManager = new ServerManager())
+            {
+                if (serverManager.ApplicationPools[name] == null)
+                {
+                    _logger.Info($"Application pool does not exist name={name}");
+                }
+                else
+                {
+                    serverManager.ApplicationPools[name].Stop();
+                    this.commitChanges(serverManager);
+                    _logger.Info($"Application pool stopped name={name}");
+                }
+            }
+        }
+
+
+        public void StartAppPool(string name)
+        {
+            _logger.Info($"Starting app pool name={name}");
+            name.Should().NotBeNullOrEmpty();
+            using (ServerManager serverManager = new ServerManager())
+            {
+                if (serverManager.ApplicationPools[name] == null)
+                {
+                    _logger.Info($"Application pool does not exist name={name}");
+                }
+                else
+                {
+                    serverManager.ApplicationPools[name].Start();
+                    this.commitChanges(serverManager);
+                    _logger.Info($"Application pool started name={name}");
                 }
             }
         }
